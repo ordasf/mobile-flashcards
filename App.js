@@ -1,13 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
+import { TabNavigator } from 'react-navigation'
+import DeckList from './components/DeckList'
+import NewDeck from './components/NewDeck'
+
+const Tabs = TabNavigator({
+  NewDeck: {
+    screen: NewDeck,
+  },
+  DeckList: {
+    screen: DeckList,
+  }
+})
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <StatusBar backgroundColor="blue" barStyle="dark-content" />
+        <View style={styles.body} >
+          <Tabs />
+        </View>
       </View>
     );
   }
@@ -16,8 +29,12 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-start',
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  body: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    marginTop: 20
+  }
 });
