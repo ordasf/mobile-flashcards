@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, FlatList } from 'react-native'
+import DeckListItem from './DeckListItem'
 import { getDecks } from '../utils/helper'
 
 class DeckList extends React.Component {
@@ -11,20 +12,25 @@ class DeckList extends React.Component {
   componentDidMount() {
     getDecks()
       .then(decks => {
-        this.setState({ decks: Object.keys(decks) })
+        this.setState({
+          decks: Object.keys(decks).map(key => (decks[key]))
+        })
       })
+  }
+
+  selectDeck = (deck) => {
+    const { navigation } = this.props
+    navigation.navigate('DeckDetail', { deck })
   }
 
   render() {
     const { decks } = this.state
-    console.log(decks)
     return (
       <View>
-        <Text>DeckList</Text>
         <FlatList
           data={decks}
-          renderItem={({ item }) => (<Text>{item}</Text>)}
-          keyExtractor={(item, index) => (item)}
+          renderItem={({ item }) => (<DeckListItem deck={item} selectDeck={this.selectDeck}/>)}
+          keyExtractor={(item, index) => (item.title)}
         />
       </View>
     )

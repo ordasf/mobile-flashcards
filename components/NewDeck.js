@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 50,
     padding: 5,
-    backgroundColor: 'red'
+    backgroundColor: 'red',
+    textAlign: 'center'
   },
   textInput: {
     width: 300,
