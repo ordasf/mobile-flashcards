@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { saveDeckTitle } from '../utils/helper';
+import DeckButton from './DeckButton'
+import DeckInput from './DeckInput'
 
 class NewDeck extends React.Component {
 
@@ -13,6 +15,10 @@ class NewDeck extends React.Component {
     this.setState({ inputValue: '' })
   }
 
+  changeTextInput = (inputValue) => {
+    this.setState({ inputValue })
+  }
+
   render() {
     const { inputValue } = this.state
     return (
@@ -20,15 +26,17 @@ class NewDeck extends React.Component {
         <Text style={styles.text}>
           What is the title of your new Deck?
         </Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={inputValue => this.setState({inputValue})}
-          placeholder={'Deck title'}
-          value={inputValue}
+        <DeckInput
+          inputValue={inputValue}
+          placeholder={'New Deck'}
+          onChangeText={this.changeTextInput}
         />
-        <TouchableOpacity style={styles.submitBtn} onPress={this.submit}>
-          <Text style={styles.textBtn}>Submit</Text>
-        </TouchableOpacity>
+        <DeckButton
+          text={'Start Quiz'}
+          onPress={this.submit}
+          customStyleButton={styles.submitBtn}
+          customStyleText={{ color: 'white' }}
+        />
       </View>
     )
   }
@@ -56,8 +64,6 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     backgroundColor: 'black',
-    borderRadius: 4,
-    padding: 10
   },
   textBtn: {
     color: 'white',

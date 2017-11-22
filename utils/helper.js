@@ -11,7 +11,6 @@ export function saveDeckTitle(title) {
   AsyncStorage.getItem(DECKS_KEY)
     .then(data => (JSON.parse(data)))
     .then(decks => {
-      console.log(decks)
       const newDecks = {
         ...decks,
         [title]: {
@@ -19,7 +18,23 @@ export function saveDeckTitle(title) {
           questions: []
         }
       }
-      console.log(newDecks)
+      AsyncStorage.setItem(DECKS_KEY, JSON.stringify(newDecks))
+    })
+}
+
+export function addCardToDeck(title, card) {
+  AsyncStorage.getItem(DECKS_KEY)
+    .then(data => (JSON.parse(data)))
+    .then(decks => {
+      const { questions } = decks[title]
+      questions.push(card)
+      const newDecks = {
+        ...decks,
+        [title]: {
+          title,
+          questions
+        }
+      }
       AsyncStorage.setItem(DECKS_KEY, JSON.stringify(newDecks))
     })
 }

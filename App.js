@@ -4,6 +4,8 @@ import { StackNavigator, TabNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
 import DeckDetail from './components/DeckDetail'
 import NewDeck from './components/NewDeck'
+import AddCard from './components/AddCard'
+import Quiz from './components/Quiz'
 
 const Tabs = TabNavigator({
   DeckList: {
@@ -29,8 +31,32 @@ const Stack = StackNavigator({
   },
   DeckDetail: {
     screen: DeckDetail,
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.deck.title}`,
+      headerTitleStyle: {
+        color: 'white'
+      },
+      headerStyle: {
+        backgroundColor: 'black'
+      },
+    }),
+  },
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
-      title: 'Decks',
+      title: 'Add Card',
+      headerTitleStyle: {
+        color: 'white'
+      },
+      headerStyle: {
+        backgroundColor: 'black'
+      },
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz',
       headerTitleStyle: {
         color: 'white'
       },
