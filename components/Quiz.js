@@ -1,32 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import QuizSummary from './QuizSummary'
 import DeckButton from './DeckButton'
 
 function showQuestion(questions, index) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.topView}>
-        <Text style={styles.questionText}>{questions[index].question}</Text>
-        <TouchableOpacity>
-          <Text>Answer</Text>
-        </TouchableOpacity>
-        <Text style={styles.answerText}>{questions[index].answer}</Text>
-      </View>
-      <View style={styles.bottomView}>
-        <DeckButton
-          text={'Correct'}
-          onPress={this.correctQuestion}
-          customStyleButton={{ backgroundColor: 'green', borderColor: 'green' }}
-          customStyleText={{ color: 'white' }}
-        />
-        <DeckButton
-          text={'Incorrect'}
-          onPress={this.incorrectQuestion}
-          customStyleButton={{ backgroundColor: 'red', borderColor: 'red' }}
-          customStyleText={{ color: 'white' }}
-        />
-      </View>
-    </View>)
+  return (<View />)
 }
 
 function showSummary() {
@@ -41,6 +19,7 @@ class Quiz extends React.Component {
 
   state = {
     index: 0,
+    showAnswer: false,
     correctQuestions: 0,
     incorrectQuestions: 0
   }
@@ -62,7 +41,48 @@ class Quiz extends React.Component {
   render() {
     const { questions } = this.props.navigation.state.params.deck
     const { index } = this.state
-    return (showQuestion(questions, index))
+    const { correctQuestions, incorrectQuestions } = this.state
+    return (
+      <View style={styles.container}>
+        { index === questions.length && (
+          <QuizSummary
+            questions={questions.length}
+            correctAnswers={correctQuestions}
+            incorrectAnswers={incorrectQuestions}
+          />
+        )}
+        { index < questions.length && (
+          <View style={styles.container}>
+            <View style={{ alignItems: 'flex-start' }}>
+              <Text>{`${index}/${questions.length}`}</Text>
+            </View>
+            <View style={styles.topView}>
+            <Text style={styles.questionText}>{questions[index].question}</Text>
+            <DeckButton
+              text={'Answer'}
+              onPress={() => this.setState({ showAnswer: true })}
+              customStyleButton={{ backgroundColor: 'black' }}
+              customStyleText={{ color: 'white' }}
+            />
+            {this.state.showAnswer && (<Text>{questions[index].answer}</Text>)}
+            </View>
+            <View style={styles.bottomView}>
+            <DeckButton
+              text={'Correct'}
+              onPress={this.correctQuestion}
+              customStyleButton={{ backgroundColor: 'green', borderColor: 'green' }}
+              customStyleText={{ color: 'white' }}
+            />
+            <DeckButton
+              text={'Incorrect'}
+              onPress={this.incorrectQuestion}
+              customStyleButton={{ backgroundColor: 'red', borderColor: 'red' }}
+              customStyleText={{ color: 'white' }}
+            />
+            </View>
+          </View>
+        )}
+      </View>)
   }
 }
 

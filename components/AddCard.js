@@ -27,6 +27,7 @@ class AddCard extends React.Component {
       answer: answerInput
     }
     addCardToDeck(deck.title, card)
+    this.props.navigation.goBack()
   }
 
   render() {

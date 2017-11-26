@@ -7,13 +7,11 @@ class DeckListItem extends React.Component {
   render() {
     const { deck, selectDeck } = this.props
     return (
-      <View style={styles.row}>
-        <TouchableOpacity onPress={() => {selectDeck(deck)}}>
-          <Text style={styles.titleText}>{deck.title}</Text>
-          <Text style={styles.questionsText}>{deck.questions.length} cards</Text>
-        </TouchableOpacity>
+      <TouchableOpacity onPress={() => {selectDeck(deck)}} style={styles.row}>
+        <Text style={styles.titleText}>{deck.title}</Text>
+        <Text style={styles.questionsText}>{deck.questions.length} cards</Text>
         <View style={styles.separator}/>
-      </View>
+      </TouchableOpacity>
     )
   }
 }

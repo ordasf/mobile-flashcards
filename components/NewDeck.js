@@ -11,8 +11,15 @@ class NewDeck extends React.Component {
   }
 
   submit = () => {
-    saveDeckTitle(this.state.inputValue)
-    this.setState({ inputValue: '' })
+    const { inputValue }= this.state
+    const { navigation } = this.props
+    if (inputValue !== '') {
+      saveDeckTitle(inputValue)
+      this.setState({ inputValue: '' })
+      navigation.goBack()
+    } else {
+      console.log('Empty Deck name!')
+    }
   }
 
   changeTextInput = (inputValue) => {
@@ -32,7 +39,7 @@ class NewDeck extends React.Component {
           onChangeText={this.changeTextInput}
         />
         <DeckButton
-          text={'Start Quiz'}
+          text={'Submit'}
           onPress={this.submit}
           customStyleButton={styles.submitBtn}
           customStyleText={{ color: 'white' }}
@@ -52,7 +59,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 50,
     padding: 5,
-    backgroundColor: 'red',
     textAlign: 'center'
   },
   textInput: {

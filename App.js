@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, StatusBar } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import DeckList from './components/DeckList'
 import DeckDetail from './components/DeckDetail'
 import NewDeck from './components/NewDeck'
@@ -10,9 +11,25 @@ import Quiz from './components/Quiz'
 const Tabs = TabNavigator({
   DeckList: {
     screen: DeckList,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (
+        <MaterialCommunityIcons
+          name={'cards'}
+          size={30}
+        />
+      )
+    }
   },
   NewDeck: {
     screen: NewDeck,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (
+        <MaterialIcons
+          name={'library-add'}
+          size={30}
+        />
+      )
+    }
   },
 })
 

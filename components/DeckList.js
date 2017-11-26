@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 import DeckListItem from './DeckListItem'
 import { getDecks } from '../utils/helper'
 
@@ -12,6 +12,7 @@ class DeckList extends React.Component {
   componentDidMount() {
     getDecks()
       .then(decks => {
+        decks = decks !== null ? decks : {}
         this.setState({
           decks: Object.keys(decks).map(key => (decks[key]))
         })
