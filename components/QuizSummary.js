@@ -25,12 +25,16 @@ class QuizSummary extends React.Component {
         )}
         <View style={styles.bottomView}>
           <DeckButton
-            text={'Go Back'}
-            onPress={() => console.log(this.props)}
+            text={'Back to Deck'}
+            onPress={() => this.props.navigation.goBack()}
+            customStyleButton={{ backgroundColor: 'black' }}
+            customStyleText={{ color: 'white' }}
           />
           <DeckButton
             text={'Restart Quiz'}
-            onPress={() => console.log(this.props)}
+            onPress={() => this.props.restartQuiz()}
+            customStyleButton={{ backgroundColor: 'white', borderColor: 'black' }}
+            customStyleText={{ color: 'black' }}
           />
         </View>
       </View>

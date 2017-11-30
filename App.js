@@ -12,23 +12,13 @@ const Tabs = TabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (
-        <MaterialCommunityIcons
-          name={'cards'}
-          size={30}
-        />
-      )
+      tabBarIcon: (<MaterialCommunityIcons name={'cards'} size={30} />)
     }
   },
   NewDeck: {
     screen: NewDeck,
     navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (
-        <MaterialIcons
-          name={'library-add'}
-          size={30}
-        />
-      )
+      tabBarIcon: (<MaterialIcons name={'library-add'} size={30} />)
     }
   },
 })
@@ -50,37 +40,28 @@ const Stack = StackNavigator({
     screen: DeckDetail,
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.deck.title}`,
-      headerTitleStyle: {
-        color: 'white'
-      },
-      headerStyle: {
-        backgroundColor: 'black'
-      },
     }),
   },
   AddCard: {
     screen: AddCard,
     navigationOptions: {
       title: 'Add Card',
-      headerTitleStyle: {
-        color: 'white'
-      },
-      headerStyle: {
-        backgroundColor: 'black'
-      },
     }
   },
   Quiz: {
     screen: Quiz,
     navigationOptions: {
       title: 'Quiz',
-      headerTitleStyle: {
-        color: 'white'
-      },
-      headerStyle: {
-        backgroundColor: 'black'
-      },
     }
+  }
+}, {
+  navigationOptions: {
+    headerTitleStyle: {
+      color: 'white'
+    },
+    headerStyle: {
+      backgroundColor: 'black'
+    },
   }
 })
 
@@ -106,6 +87,6 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     justifyContent: 'flex-start',
-    marginTop: 20
+    marginTop: 40
   }
 });

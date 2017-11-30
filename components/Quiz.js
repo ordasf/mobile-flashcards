@@ -38,47 +38,58 @@ class Quiz extends React.Component {
     }))
   }
 
+  restartQuiz = () => {
+    this.setState({
+      index: 0,
+      showAnswer: false,
+      correctQuestions: 0,
+      incorrectQuestions: 0
+    })
+  }
+
   render() {
     const { questions } = this.props.navigation.state.params.deck
     const { index } = this.state
     const { correctQuestions, incorrectQuestions } = this.state
     return (
       <View style={styles.container}>
+        <View style={{ alignItems: 'flex-start' }}>
+          <Text>{`${index}/${questions.length}`}</Text>
+        </View>
         { index === questions.length && (
           <QuizSummary
             questions={questions.length}
             correctAnswers={correctQuestions}
             incorrectAnswers={incorrectQuestions}
+            restartQuiz={this.restartQuiz}
+            navigation={this.props.navigation}
           />
         )}
         { index < questions.length && (
           <View style={styles.container}>
-            <View style={{ alignItems: 'flex-start' }}>
-              <Text>{`${index}/${questions.length}`}</Text>
-            </View>
             <View style={styles.topView}>
-            <Text style={styles.questionText}>{questions[index].question}</Text>
-            <DeckButton
-              text={'Answer'}
-              onPress={() => this.setState({ showAnswer: true })}
-              customStyleButton={{ backgroundColor: 'black' }}
-              customStyleText={{ color: 'white' }}
-            />
-            {this.state.showAnswer && (<Text>{questions[index].answer}</Text>)}
+              <Text style={styles.questionText}>{questions[index].question}</Text>
+              <DeckButton
+                text={'Answer'}
+                onPress={() => this.setState({ showAnswer: true })}
+                customStyleButton={{ backgroundColor: 'black' }}
+                customStyleText={{ color: 'white' }}
+              />
+              {this.state.showAnswer && (<Text>{questions[index].answer}</Text>)}
             </View>
             <View style={styles.bottomView}>
-            <DeckButton
-              text={'Correct'}
-              onPress={this.correctQuestion}
-              customStyleButton={{ backgroundColor: 'green', borderColor: 'green' }}
-              customStyleText={{ color: 'white' }}
-            />
-            <DeckButton
-              text={'Incorrect'}
-              onPress={this.incorrectQuestion}
-              customStyleButton={{ backgroundColor: 'red', borderColor: 'red' }}
-              customStyleText={{ color: 'white' }}
-            />
+              <DeckButton
+                text={'Correct'}
+                onPress={this.correctQuestion}
+                customStyleButton={{ backgroundColor: 'green', borderColor: 'green' }}
+                customStyleText={{ color: 'white' }}
+              />
+              <DeckButton
+                text={'Incorrect'}
+                onPress={this.incorrectQuestion}
+                customStyleButton={{ backgroundColor: 'red', borderColor: 'red' }}
+                customStyleText={{ color: 'white' }}
+              />
             </View>
           </View>
         )}
@@ -92,13 +103,11 @@ const styles = StyleSheet.create({
   },
   topView: {
     flex: 4,
-    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center'
   },
   bottomView: {
     flex: 3,
-    backgroundColor: 'yellow',
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
