@@ -7,6 +7,7 @@ import DeckDetail from './components/DeckDetail'
 import NewDeck from './components/NewDeck'
 import AddCard from './components/AddCard'
 import Quiz from './components/Quiz'
+import { setLocalNotification } from "./utils/helper";
 
 const Tabs = TabNavigator({
   DeckList: {
@@ -66,6 +67,11 @@ const Stack = StackNavigator({
 })
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <View style={styles.container}>

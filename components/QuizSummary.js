@@ -2,8 +2,13 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import DeckButton from './DeckButton'
+import { clearLocalNotification, setLocalNotification} from "../utils/helper";
 
 class QuizSummary extends React.Component {
+
+  componentDidMount() {
+    clearLocalNotification().then(setLocalNotification)
+  }
 
   render() {
     const { questions, correctAnswers, incorrectAnswers } = this.props
