@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { saveDeckTitle } from '../utils/helper';
 import DeckButton from './DeckButton'
 import DeckInput from './DeckInput'
@@ -29,7 +29,7 @@ class NewDeck extends React.Component {
   render() {
     const { inputValue } = this.state
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
         <Text style={styles.text}>
           What is the title of your new Deck?
         </Text>
@@ -44,7 +44,7 @@ class NewDeck extends React.Component {
           customStyleButton={styles.submitBtn}
           customStyleText={{ color: 'white' }}
         />
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

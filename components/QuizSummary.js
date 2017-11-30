@@ -60,13 +60,11 @@ const styles = StyleSheet.create({
   },
   topView: {
     flex: 4,
-    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center'
   },
   bottomView: {
     flex: 3,
-    backgroundColor: 'yellow',
     justifyContent: 'flex-start',
     alignItems: 'center'
   },

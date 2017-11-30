@@ -45,13 +45,11 @@ const styles = StyleSheet.create({
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red'
   },
   quiz: {
     flex: 3,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: 'yellow'
   },
   deckName: {
     fontSize: 40
