@@ -14,9 +14,13 @@ class NewDeck extends React.Component {
     const { inputValue }= this.state
     const { navigation } = this.props
     if (inputValue !== '') {
-      saveDeckTitle(inputValue)
       this.setState({ inputValue: '' })
-      navigation.goBack()
+      saveDeckTitle(inputValue)
+        .then((deck) => {
+          const { addDeck } = this.props.screenProps
+          addDeck(deck)
+          navigation.navigate('DeckDetail', { deck })
+        })
     } else {
       console.log('Empty Deck name!')
     }

@@ -10,34 +10,38 @@ export function getDecks() {
 }
 
 export function saveDeckTitle(title) {
-  AsyncStorage.getItem(DECKS_KEY)
+  return AsyncStorage.getItem(DECKS_KEY)
     .then(data => (JSON.parse(data)))
     .then(decks => {
+      const deck = {
+        title,
+        questions: []
+      }
       const newDecks = {
         ...decks,
-        [title]: {
-          title,
-          questions: []
-        }
+        [title]: deck
       }
       AsyncStorage.setItem(DECKS_KEY, JSON.stringify(newDecks))
+      return deck
     })
 }
 
 export function addCardToDeck(title, card) {
-  AsyncStorage.getItem(DECKS_KEY)
+  return AsyncStorage.getItem(DECKS_KEY)
     .then(data => (JSON.parse(data)))
     .then(decks => {
       const { questions } = decks[title]
       questions.push(card)
+      const deck = {
+        title,
+        questions
+      }
       const newDecks = {
         ...decks,
-        [title]: {
-          title,
-          questions
-        }
+        [title]: deck
       }
       AsyncStorage.setItem(DECKS_KEY, JSON.stringify(newDecks))
+      return deck
     })
 }
 

@@ -7,7 +7,7 @@ import DeckDetail from './components/DeckDetail'
 import NewDeck from './components/NewDeck'
 import AddCard from './components/AddCard'
 import Quiz from './components/Quiz'
-import { setLocalNotification } from "./utils/helper";
+import {getDecks, setLocalNotification} from "./utils/helper";
 
 const Tabs = TabNavigator({
   DeckList: {
@@ -68,16 +68,49 @@ const Stack = StackNavigator({
 
 export default class App extends React.Component {
 
+  state = {
+    decks: []
+  }
+
+  addDeck = (newDeck) => {
+    this.setState(state => ({
+      decks: [...state.decks, newDeck]
+    }))
+  }
+
+  addCard = (deckUpdated) => {
+    this.setState(state => ({
+      decks: state.decks.map(deck => {
+        if (deck.title === deckUpdated.title) {
+          return deckUpdated
+        }
+        return deck
+      })
+    }))
+  }
+
   componentDidMount() {
     setLocalNotification()
+    getDecks()
+    .then(decks => {
+      decks = decks !== null ? decks : {}
+      this.setState({
+        decks: Object.keys(decks).map(key => (decks[key]))
+      })
+    })
   }
 
   render() {
+    const props = {
+      decks: this.state.decks,
+      addDeck: this.addDeck,
+      addCard: this.addCard
+    }
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="blue" barStyle="dark-content" />
         <View style={styles.body} >
-          <Stack />
+          <Stack screenProps={props}/>
         </View>
       </View>
     );

@@ -11,7 +11,9 @@ class DeckDetail extends React.Component {
   }
 
   render() {
-    const { deck } = this.props.navigation.state.params
+    const deckTitle = this.props.navigation.state.params.deck.title
+    const { decks } = this.props.screenProps
+    const deck = decks.filter(deck => (deck.title === deckTitle))[0]
     return (
       <View style={styles.container}>
         <View style={styles.info}>

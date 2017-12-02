@@ -21,13 +21,17 @@ class AddCard extends React.Component {
 
   submitCard = () => {
     const { deck } = this.props.navigation.state.params
+    const { addCard } = this.props.screenProps
     const { questionInput, answerInput } = this.state
     const card = {
       question: questionInput,
       answer: answerInput
     }
     addCardToDeck(deck.title, card)
-    this.props.navigation.goBack()
+      .then((deckUpdated) => {
+        addCard(deckUpdated)
+        this.props.navigation.goBack()
+      })
   }
 
   render() {

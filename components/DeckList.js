@@ -1,23 +1,8 @@
 import React from 'react'
 import { View, FlatList } from 'react-native'
 import DeckListItem from './DeckListItem'
-import { getDecks } from '../utils/helper'
 
 class DeckList extends React.Component {
-
-  state = {
-    decks: []
-  }
-
-  componentDidMount() {
-    getDecks()
-      .then(decks => {
-        decks = decks !== null ? decks : {}
-        this.setState({
-          decks: Object.keys(decks).map(key => (decks[key]))
-        })
-      })
-  }
 
   selectDeck = (deck) => {
     const { navigation } = this.props
@@ -25,7 +10,7 @@ class DeckList extends React.Component {
   }
 
   render() {
-    const { decks } = this.state
+    const { decks } = this.props.screenProps
     return (
       <View>
         <FlatList
