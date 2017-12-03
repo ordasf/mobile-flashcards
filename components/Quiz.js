@@ -1,19 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Animated } from 'react-native'
 import QuizSummary from './QuizSummary'
 import DeckButton from './DeckButton'
-
-function showQuestion(questions, index) {
-  return (<View />)
-}
-
-function showSummary() {
-  return (
-    <View style={styles.container}>
-      <Text>Summary of the Quiz</Text>
-    </View>
-  )
-}
 
 class Quiz extends React.Component {
 
@@ -21,17 +9,21 @@ class Quiz extends React.Component {
     index: 0,
     showAnswer: false,
     correctQuestions: 0,
-    incorrectQuestions: 0
+    incorrectQuestions: 0,
+    opacity: new Animated.Value(0),
+    fontSize: new Animated.Value(1)
   }
 
   correctQuestion = () => {
+    this.hideAnswer()
     this.setState(state => ({
       index: state.index + 1,
-      correctQuestions: state.correctQuestions + 1
+      correctQuestions: state.correctQuestions + 1,
     }))
   }
 
   incorrectQuestion = () => {
+    this.hideAnswer()
     this.setState(state => ({
       index: state.index + 1,
       incorrectQuestions: state.incorrectQuestions + 1
@@ -39,17 +31,30 @@ class Quiz extends React.Component {
   }
 
   restartQuiz = () => {
+    this.hideAnswer()
     this.setState({
       index: 0,
       showAnswer: false,
       correctQuestions: 0,
-      incorrectQuestions: 0
+      incorrectQuestions: 0,
     })
+  }
+
+  showAnswer = () => {
+    const { opacity, fontSize } = this.state
+    Animated.timing(opacity, { toValue: 1, duration: 1000 }).start()
+    Animated.spring(fontSize, { toValue: 30, speed: 5 }).start()
+  }
+
+  hideAnswer = () => {
+    const { opacity, fontSize } = this.state
+    Animated.timing(opacity, { toValue: 0, duration: 0 }).start()
+    Animated.spring(fontSize, { toValue: 1, speed: 5 }).start()
   }
 
   render() {
     const { questions } = this.props.navigation.state.params.deck
-    const { index } = this.state
+    const { index, opacity, fontSize } = this.state
     const { correctQuestions, incorrectQuestions } = this.state
     return (
       <View style={styles.container}>
@@ -70,12 +75,12 @@ class Quiz extends React.Component {
             <View style={styles.topView}>
               <Text style={styles.questionText}>{questions[index].question}</Text>
               <DeckButton
-                text={'Answer'}
-                onPress={() => this.setState({ showAnswer: true })}
+                text={'Show Answer'}
+                onPress={() => this.showAnswer()}
                 customStyleButton={{ backgroundColor: 'black' }}
                 customStyleText={{ color: 'white' }}
               />
-              {this.state.showAnswer && (<Text>{questions[index].answer}</Text>)}
+              <Animated.Text style={{ opacity, fontSize }}>{questions[index].answer}</Animated.Text>
             </View>
             <View style={styles.bottomView}>
               <DeckButton

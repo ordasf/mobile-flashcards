@@ -11,21 +11,18 @@ class QuizSummary extends React.Component {
   }
 
   render() {
-    const { questions, correctAnswers, incorrectAnswers } = this.props
+    const { questions, correctAnswers } = this.props
     return (
       <View style={styles.container}>
         {questions === 0 && (
           <View style={styles.topView}>
-            <Text>This Decks does not have any Questions</Text>
+            <Text style={styles.titleText}>This Deck does not have any Questions</Text>
           </View>
         )}
         {questions > 0 && (
           <View style={styles.topView}>
-            <Text>Quiz results:</Text>
-            <Text>Number of questions: {questions}</Text>
-            <Text>Number of correct answers: {correctAnswers}</Text>
-            <Text>Number of incorrect answers: {incorrectAnswers}</Text>
-            <Text>Percentage of success: {((correctAnswers/questions) * 100)}</Text>
+            <Text style={styles.titleText}>Score:</Text>
+            <Text style={styles.percentageText}>{((correctAnswers/questions) * 100)}%</Text>
           </View>
         )}
         <View style={styles.bottomView}>
@@ -68,6 +65,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
+  titleText: {
+    fontSize: 40,
+    margin: 10
+  },
+  percentageText: {
+    fontSize: 60,
+    margin: 10
+  }
 })
 
 export default QuizSummary

@@ -9,6 +9,16 @@ export function getDecks() {
     .then(data => (JSON.parse(data)))
 }
 
+export function getDeck(deckTitle) {
+  return AsyncStorage.getItem(DECKS_KEY)
+    .then(data => (JSON.parse(data)))
+    .then(decks => {
+      console.log(deckTitle)
+      console.log(decks)
+      return decks[deckTitle]
+    })
+}
+
 export function saveDeckTitle(title) {
   return AsyncStorage.getItem(DECKS_KEY)
     .then(data => (JSON.parse(data)))
